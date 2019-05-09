@@ -2,6 +2,7 @@
 require 'discordrb'
 require_relative 'log'
 require_relative 'credentials'
+require_relative 'macros'
 require_relative 'database'
 
 # Post-run cleanup activities
@@ -28,7 +29,10 @@ module GatekeeperBot
   def self.load_modules(klass, path)
     new_module = Module.new
     const_set(klass.to_sym, new_module)
-    Dir["src/modules/#{path}/*.rb"].each { |file| load file }
+    Dir["src/#{path}/*.rb"].each do |file|
+      GatekeeperBot::LOG.debug("Loading #{file}")
+      load file
+    end
     new_module.constants.each do |mod|
       BOT.include! new_module.const_get(mod)
     end
