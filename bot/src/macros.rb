@@ -3,7 +3,8 @@ require 'json'
 module GatekeeperBot
   module_function
 
-  adminlistfile = File.realpath(__dir__ + '/../') + '/admins.json'
+  DEFAULT_BUCKET_CONFIG = { limit: 1, time_span: 3, delay: nil }.freeze
+
   ADMINS = Credentials[:discord][:bot_admins].map(&:to_i) || []
 
   def admin?(user)
