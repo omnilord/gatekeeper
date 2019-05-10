@@ -30,7 +30,7 @@ module GatekeeperBot::DiscordCommands
     BUCKET = GatekeeperBot::BOT.bucket(:greeter, GatekeeperBot::DEFAULT_BUCKET_CONFIG)
 
     command(GREET, usage: USAGE[GREET], description: HELP[GREET], bucket: :greeter) do |event, *args|
-      next if event.server.nil?
+      next if event.server.nil? || !GatekeeperBot.allowed?(event, [:manage_server])
 
       greeting =
         if args.length.zero?
