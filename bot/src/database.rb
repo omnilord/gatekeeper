@@ -12,13 +12,11 @@ module Database
   DB = Sequel.connect(url)
   DB.extension(:pg_json)
 
-  # base classes for existing tables w/o qualifications
-  #   Move into modules/databases/<%tablename%>.rb if
-  #   extending functionality
-  Setting = DB[:settings]
+  # base classes/datasets for existing tables w/o qualifications.  Move
+  #   into databases/<%tablename%>.rb if extending functionality.
 end
 
-Dir[File.dirname(File.absolute_path(__FILE__)) + '/modules/database/*.rb'].each do |file|
+Dir[File.dirname(File.absolute_path(__FILE__)) + '/database/*.rb'].each do |file|
   GatekeeperBot::LOG.debug("Loading #{file}")
   require file
 end

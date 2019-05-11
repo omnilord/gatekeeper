@@ -49,5 +49,6 @@ module GatekeeperBot
   rescue AppPermissionError, Discordrb::Errors::NoPermission => er
     bot_user = OpenStruct.new(username: 'GatekeeperBot::BOT', user_id: 'self')
     cmd_log(:error, '!permissioned_eval', er.class.name, event, bot_user, er.inspect)
+    nil
   end
 end

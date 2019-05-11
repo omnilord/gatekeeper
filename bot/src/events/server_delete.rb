@@ -1,9 +1,9 @@
 module GatekeeperBot::DiscordEvents
-  module Join
+  module ServerDelete
     extend Discordrb::EventContainer
 
-    member_join do |event|
-      Gatekeeper::Greet.greet(event.server, event.user)
+    server_delete do |event|
+      Database::Settings.where(entity_id: event.server.resolve_id).delete
     rescue StandardError => er
       GatekeeperBot::LOG.error(([er.message, ''] + er.backtrace).join("\n"))
     end
